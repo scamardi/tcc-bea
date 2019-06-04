@@ -14,6 +14,7 @@ contract WikiBea {
 
   constructor() public {
     owner = msg.sender;
+    adicionaArtigo("titulo teste", "corpo teste");
   } 
 
   // mapeando o artigo
@@ -40,8 +41,6 @@ contract WikiBea {
   	// versiona
   	artigos[_id].versao ++;
   }
-
   
-
 
 }
