@@ -25,6 +25,8 @@ async function main() {
     deployedNetwork && deployedNetwork.address,
   )
 
+  const test = await instance.methods.getArtigo(1).call()
+  console.log('resultado: ', test)
   return instance
   
 
@@ -33,13 +35,7 @@ async function main() {
 
 main()
   .then((instance) => {
-    instance.methods.artigos(1).call((err, result) => { console.log('resultado2:', result) })
-      .then((err, resultado) => {
-        console.log('resultado: ', resultado)
-      })
-      .catch((err) => {
-        console.log('erro:', err)
-      })
+    
   })
   .catch((err)=>{console.log('erro:', err)})
 
