@@ -42,8 +42,8 @@ contract WikiBea {
   	artigos[_id].versao ++;
   }
 
-  function getArtigo(uint id) public view returns (uint, string memory){
-    return (artigos[id].id, artigos[id].titulo);
+  function getArtigo() public view returns (uint, string memory){
+    return (artigos[1].id, artigos[1].titulo);
   }
   
 

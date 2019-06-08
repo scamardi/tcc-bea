@@ -6,9 +6,9 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -18,6 +18,176 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <script>
+        const contract_address = "0x5abF799Fb0897fbD1a5DB323C1BEF90dcFC7bd22";
+        const abi = [
+            {
+            "constant": true,
+            "inputs": [],
+            "name": "artigosCount",
+            "outputs": [
+                {
+                "name": "",
+                "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+            },
+            {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                "name": "",
+                "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+            },
+            {
+            "constant": true,
+            "inputs": [
+                {
+                "name": "",
+                "type": "uint256"
+                }
+            ],
+            "name": "artigos",
+            "outputs": [
+                {
+                "name": "id",
+                "type": "uint256"
+                },
+                {
+                "name": "titulo",
+                "type": "string"
+                },
+                {
+                "name": "corpo",
+                "type": "string"
+                },
+                {
+                "name": "autor",
+                "type": "address"
+                },
+                {
+                "name": "versao",
+                "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+            },
+            {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+            },
+            {
+            "constant": false,
+            "inputs": [
+                {
+                "name": "_titulo",
+                "type": "string"
+                },
+                {
+                "name": "_corpo",
+                "type": "string"
+                }
+            ],
+            "name": "adicionaArtigo",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+            },
+            {
+            "constant": false,
+            "inputs": [
+                {
+                "name": "_id",
+                "type": "uint256"
+                },
+                {
+                "name": "_titulo",
+                "type": "string"
+                },
+                {
+                "name": "_corpo",
+                "type": "string"
+                }
+            ],
+            "name": "alterarArtigo",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+            },
+            {
+            "constant": true,
+            "inputs": [
+                {
+                "name": "id",
+                "type": "uint256"
+                }
+            ],
+            "name": "getArtigo",
+            "outputs": [
+                {
+                "name": "",
+                "type": "uint256"
+                },
+                {
+                "name": "",
+                "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+            }
+        ]
+
+        let contract;
+
+        var version = web3.version.api;
+        console.log('versao: ', version); // "0.2.0"
+
+        function main() {
+            contract = web3.eth.contract(abi).at(contract_address);
+            console.log('contrato: ', contract)
+
+            //console.log('argumentos: ' , contract.artigos.arguments)
+            //teste = contract.artigos.call(1).then((result) => {
+            //    $('#message').text(result[1].toString())
+            //}) //$('#message').text(result[1]);
+            
+            var o = 1
+            o = o.toString(16)
+            teste = contract.getArtigo(o, (err, result) => {
+                console.log('resultado: ', err)
+            })
+        }
+
+        window.addEventListener('load', () => {
+            if(typeof(web3) === 'undefined') {
+                return console.log("Metamask is not installed.");
+            }
+
+            main()
+                //.then(() => {console.log('foi')})
+                //.catch((err) => {console.log('erro:', err)})
+        });
+
+       
+    </script>
 
 </head>
 <body class="body">
@@ -44,12 +214,7 @@
 
             <div class="panel-body flexbox content">
                 <div class="content-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae posuere neque. Fusce eu finibus quam. Integer rutrum, nisi non lacinia interdum, metus erat semper mi, eu aliquam libero ligula id odio. Nam sit amet arcu non odio hendrerit auctor at eu nisi. Praesent at pretium quam. Nullam lorem risus, laoreet at erat non, semper vestibulum tellus. Nullam quis viverra elit.</p>
-                    <p>Duis placerat velit ipsum, sit amet tincidunt diam pellentesque sed. Quisque vel leo vel massa congue porta vulputate ac quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi at velit lorem. Vestibulum euismod diam non tortor vestibulum euismod. Praesent pharetra a elit ac placerat. Vestibulum vitae erat vel lectus ornare fringilla quis et magna.</p>
-                    <p>Sed sodales porta pulvinar. Donec maximus tellus vitae turpis facilisis sagittis. Suspendisse quis libero non tellus auctor feugiat in et nunc. Donec vel velit congue, viverra massa sed, commodo est. Fusce hendrerit vitae ligula eu venenatis. Donec porttitor risus nisl, vel volutpat erat rutrum eu. Cras luctus hendrerit facilisis. Sed commodo tempor est, quis placerat nibh luctus vel. In rutrum nibh eu ex sodales, id rutrum urna aliquam. Nulla luctus massa urna, vel tristique urna interdum tristique. Vestibulum non elit sed neque hendrerit hendrerit. Nam in dolor efficitur, finibus enim ultricies, pulvinar arcu.</p>
-                    <p>Aenean fermentum lobortis lobortis. Phasellus ut egestas massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec tincidunt est at turpis blandit, non gravida nisi consectetur. Maecenas ullamcorper aliquam interdum. Aenean mollis enim id tellus tincidunt hendrerit. Mauris convallis odio risus, sit amet tristique lorem gravida nec. Etiam eu urna malesuada, porta velit eget, semper tortor. Nam luctus diam sit amet volutpat egestas.</p>
-                    <p>Nunc mauris erat, accumsan vel vehicula in, consectetur sed odio. Praesent varius pretium ligula, vitae congue erat dictum et. Vivamus gravida ex vel ullamcorper mollis. Maecenas tincidunt, neque non rhoncus posuere, turpis elit vulputate libero, eget sodales odio sem eget turpis. Aliquam egestas et purus nec hendrerit. Nulla in mauris at velit accumsan maximus. Nullam eget dolor commodo, gravida sem a, accumsan risus. Nam tempor congue odio eu euismod.</p>
-                </div>
+                    <div id="message"></div>
                 <div class="img">
                     <img class="img-fluid" src="eye.jpg">
                     <p class="img-desc">Aenean fermentum lobortis lobortis. Phasellus ut egestas massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec tincidunt est at turpis blandit, non gravida nisi consectetur. Maecenas ullamcorper aliquam interdum.</p>
